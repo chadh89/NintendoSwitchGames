@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- <h1 class="text-center">Nintendo Switch Games</h1>
+            <hr/> -->
+        <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Nintendo Switch Games</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                                    <a class="nav-link" href="#">Link</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled">Disabled</a>
+                                </li>-->
+                    </ul>
+                    <form class="d-flex" role="search" th:action="@{/}" th:object="${search}" method="POST">
+                        <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" th:field="*{query}">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <table class="table table-bordered table-striped">
+            <!-- Initial API hits -->
+            <!-- <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th>Sale Price</th>
+                        <th>Lowest Price</th>
+                        <th>Platform</th>
+                        <th>URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="game : ${gameList}">
+                        <td th:text="${game.title}"></td>
+                        <td th:text="${game.description}"></td>
+                        <td><img th:src="${game.horizontalHeaderImage}" alt="" height="100px" /></td>
+                        <td th:text="${game.msrp}"></td>
+                        <td th:text="${game.salePrice}"></td>
+                        <td th:text="${game.lowestPrice}"></td>
+                        <td th:text="${game.platform}"></td>
+                        <td><a class="btn btn-primary" th:href="|https://www.nintendo.com${game.url}|" target="_blank">Buy</a></td>
+                    </tr>
+                </tbody> -->
+            <!-- Queried API hits -->
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Regular Price</th>
+                    <th>Final Price</th>
+                    <th>Sale Price</th>
+                    <th>Platform</th>
+                    <th>URL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="game : ${gameList}">
+                    <td th:text="${game.title}"></td>
+                    <td th:text="${game.description}"></td>
+                    <td><img th:src="|https://assets.nintendo.com/image/upload/${game.productImage}" alt="" height="100px" /></td>
+                    <td th:text="${game.price.regPrice}"></td>
+                    <td th:text="${game.price.finalPrice}"></td>
+                    <td th:text="${game.price.salePrice}"></td>
+                    <td th:text="${game.corePlatforms[0]}"></td>
+                    <td><a class="btn btn-primary" th:href="|https://www.nintendo.com${game.url}|" target="_blank">Buy</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script th:src="@{/webjars/jquery/3.6.4/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.min.js}"></script>
+</body>
+
+</html>
